@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Найди свой тур</title>
+</head>
+<body>
+
+    <h1>Все туры:</h1>
+
+    <div class="card">
+        {% for num_of_tour, tour_info in all_tours.items() %}
+        <p>{{ tour_info.country }}: <a href="/data/tours/{{ num_of_tour }}/">{{ tour_info.title }} {{ tour_info.stars }}*</a></p>
+        {% endfor %} 
+    </div>  
+
+</body>
+</html>

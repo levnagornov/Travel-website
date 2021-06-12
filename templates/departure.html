@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Туры по направлению
+{% endblock %}
+
+
+{% block content_title %}
+<h1>Туры по направлению {{ all_departures[departure] }}:</h1>
+{% endblock %}
+
+
+
+{% block content %} 
+
+<!--Analitics -->
+<p>Найдено {{ all_tours|length }} туров</p>
+<hr>
+
+
+<div class="d-flex align-center" >
+    {% for num_of_tour, tour_info in all_tours.items() %}
+        {% if tour_info.departure == departure %}
+        <div class="col-3 card m-4">
+            <img class="card-img-top" style="width:700px;height:500px" src="{{ tour_info.picture }}" alt="Photo">
+            <h5 class="card-text font-weight-bold">{{ tour_info.country }}: <a href="/data/tours/{{ num_of_tour }}/">{{ tour_info.title }} {{ tour_info.stars }}*</a></h5>
+            <p class="card-text">{{ tour_info.description }}</p>
+            <p class="card-text font-weight-bold">{{ tour_info.date }}, {{ tour_info.nights }} дней, {{ tour_info.price }} руб</p>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %} 
+</div>
+
+{% endblock %}

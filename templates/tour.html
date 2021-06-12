@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-7 card">
+        <p class="card-title font-weight-bold">{{ tour_info.country }}: {{ tour_info.title }} {{ tour_info.price }}руб.</p>
+        <img class="card-img-top" src="{{ tour_info.picture }}" alt="Photo">
+        <div class="card-body">
+            <div class="card-text font-weight-bold">
+                <p>{{ tour_info.nights }} ночей</p>
+                <p>Стоимость {{ tour_info.price }}</p>
+            </div>
+            <p>{{ tour_info.description }}</p>
+        </div>
+    </div>
+{% endblock %}
