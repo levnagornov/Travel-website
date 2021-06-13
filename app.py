@@ -11,7 +11,8 @@ def render_index():
         title=data.title, 
         subtitle=data.subtitle, 
         description=data.description,
-        all_departures=data.departures
+        all_departures=data.departures,
+        all_tours=data.tours
     )
 
 
