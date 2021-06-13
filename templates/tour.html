@@ -3,17 +3,15 @@
 {% block content_title %}
 {% endblock %}
 
-
-
 {% block content %}
-
-
+    <!-- Tour represented as a card -->
     <main class="container">
-
         <section class="mt-3 pb-5">
-            <a href="/"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+
+          <!-- Back-button returns to main page -->
+          <a href="/"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+
           <h1 class="display-3 mt-4">{{ tour_info.title }} {{ tour_info.stars|int * '★' }}</h1>
-          <!-- HERO -->
           <p class="lead">{{ tour_info.country }} | {{ all_departures[tour_info.departure] }} | {{ tour_info.nights }} ночей</p>
           <img
             src="{{ tour_info.picture }}"

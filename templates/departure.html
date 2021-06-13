@@ -1,35 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Туры по направлению
-{% endblock %}
-
-
-{% block content_title %}
-<h1>Туры по направлению {{ all_departures[departure] }}:</h1>
-{% endblock %}
-
-
-
 {% block content %} 
-
-<!--Analitics -->
-<p>Найдено {{ all_tours|length }} туров</p>
-<hr>
-
-
-<div class="d-flex align-center" >
+<main class="container mt-3">
+    <h1 class="display-5 mt-4">Летим {{ all_departures[departure] }}</h1>
+    <!--Analitics -->
+    <p class="mb-4">Найдено {{ all_tours|length }} туров, от 26 000 до 84 600 и от 4 ночей до 15 ночей</p>
+    <!-- CARDS -->
+    <div class="row mt-5">
     {% for num_of_tour, tour_info in all_tours.items() %}
-        {% if tour_info.departure == departure %}
-        <div class="col-3 card m-4">
-            <img class="card-img-top" style="width:700px;height:500px" src="{{ tour_info.picture }}" alt="Photo">
-            <h5 class="card-text font-weight-bold">{{ tour_info.country }}: <a href="/data/tours/{{ num_of_tour }}/">{{ tour_info.title }} {{ tour_info.stars }}*</a></h5>
+      {% if tour_info.departure == departure %}
+      <div class="col-4">
+        <div class="card mb-4">
+          <div class="embed-responsive embed-responsive-16by9">  
+          <img src="{{ tour_info.picture }}" class="card-img-top img-fluid embed-responsive-item" alt="">
+          </div>
+          <div class="card-body">
+            <h2 class="h5 card-title">{{ tour_info.title }} {{ tour_info.stars }}*</h2>
             <p class="card-text">{{ tour_info.description }}</p>
-            <p class="card-text font-weight-bold">{{ tour_info.date }}, {{ tour_info.nights }} дней, {{ tour_info.price }} руб</p>
+            <a href="/data/tours/{{ num_of_tour }}/" class="btn btn-sm btn-primary">Подробнее</a>
+          </div>
         </div>
-        <br>
-        {% endif %}
-    {% endfor %} 
-</div>
-
+      </div>  
+      {% endif %}
+    {% endfor %}   
+    </div>
+</main>
 {% endblock %}
