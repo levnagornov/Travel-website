@@ -20,6 +20,9 @@ def render_index():
 def render_departures(departure):
     ''' Page shows all possible tours by certain departure '''
 
+    if departure not in data.departures:
+        return render_not_found(404)
+
     return render_template(
         'departure.html',
         title=data.title,  
