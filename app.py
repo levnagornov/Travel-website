@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 import data
 
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def render_index():
@@ -21,7 +23,8 @@ def render_departures(departure):
     ''' Page shows all possible tours by certain departure '''
 
     if departure not in data.departures:
-        return render_not_found(404)
+        message = f'К сожалению, отправления из {departure} не существует, попробуйте снова.'
+        return render_not_found(404, message)
 
     return render_template(
         'departure.html',
@@ -35,10 +38,15 @@ def render_departures(departure):
 @app.route('/data/tours/<tour_id>/')
 def render_tours(tour_id):
     ''' Page of certain tour '''
-
-    if data.tours.get(int(tour_id), 0) == 0:
-        return f'К сожалению, тура с номером {tour_id} не существует, попробуйте снова.'
-
+    
+    # validating tour_id
+    try:
+        if data.tours.get(int(tour_id), 0) == 0:
+            raise ValueError
+    except ValueError:
+        message = f'К сожалению, тура с номером {tour_id} не существует, попробуйте снова.'
+        return render_not_found(404, message)
+        
     return render_template(
         'tour.html', 
         title=data.title,
@@ -46,7 +54,7 @@ def render_tours(tour_id):
         all_departures=data.departures   
     )
 
-
+#temporary page due to the requirement of the course
 @app.route('/data/')
 def render_data():
     ''' TEMPORARY PAGE. Show all accessible tours '''
@@ -56,17 +64,35 @@ def render_data():
 
 #errors handling
 @app.errorhandler(500)
-def render_server_error(error):
+def render_server_error(
+    error, 
+    message='Что-то не так, но мы все починим!'
+):
     ''' Handling 500 error '''
 
-    return "Что-то не так, но мы все починим"
+    return render_template(
+        'error.html', 
+        message=message, 
+        title = data.title,
+        all_departures = data.departures
+    )
+
 
 @app.errorhandler(404)
-def render_not_found(error):
+def render_not_found(
+    error, 
+    message='Ничего не нашлось! Вот неудача, отправляйтесь на главную!'    
+):
     ''' Handling 404 error '''
 
-    return "Ничего не нашлось! Вот неудача, отправляйтесь на главную!"   
+    return render_template(
+        'error.html', 
+        message=message, 
+        title = data.title,
+        all_departures = data.departures
+    )
 
 
+#entry point
 if __name__ == '__main__':
     app.run(debug=True)

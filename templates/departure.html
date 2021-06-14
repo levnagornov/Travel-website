@@ -2,10 +2,16 @@
 
 {% block content %} 
 <main class="container mt-3">
+    <!-- Back-button returns to main page -->
+    <a href="/" class="mt-3 pb-5"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+    
+    <!-- Main title -->
     <h1 class="display-5 mt-4">Летим {{ all_departures[departure] }}</h1>
-    <!--Analitics -->
+
+    <!-- Analitics -->
     <p class="mb-4">Найдено {{ all_tours|length }} туров, от 26 000 до 84 600 и от 4 ночей до 15 ночей</p>
-    <!-- CARDS -->
+
+    <!-- Cards -->
     <div class="row mt-5">
     {% for num_of_tour, tour_info in all_tours.items() %}
       {% if tour_info.departure == departure %}
