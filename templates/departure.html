@@ -9,12 +9,11 @@
     <h1 class="display-5 mt-4">Летим {{ all_departures[departure] }}</h1>
 
     <!-- Analitics -->
-    <p class="mb-4">Найдено {{ all_tours|length }} туров, от 26 000 до 84 600 и от 4 ночей до 15 ночей</p>
+    <p class="mb-4">Найдено туров: {{ analitics.tours_found }}, от {{ analitics.prices|min }} руб до {{ analitics.prices|max }} руб и от {{ analitics.nights|min }} ночей до {{ analitics.nights|max }} ночей</p>
 
     <!-- Cards -->
     <div class="row mt-5">
     {% for num_of_tour, tour_info in all_tours.items() %}
-      {% if tour_info.departure == departure %}
       <div class="col-4">
         <div class="card mb-4">
           <div class="embed-responsive embed-responsive-16by9">  
@@ -22,12 +21,11 @@
           </div>
           <div class="card-body">
             <h2 class="h5 card-title">{{ tour_info.title }} {{ tour_info.stars }}*</h2>
-            <p class="card-text">{{ tour_info.description }}</p>
+            <p class="card-text">{{ tour_info.description|truncate(120) }}</p>
             <a href="/data/tours/{{ num_of_tour }}/" class="btn btn-sm btn-primary">Подробнее</a>
           </div>
         </div>
       </div>  
-      {% endif %}
     {% endfor %}   
     </div>
 </main>

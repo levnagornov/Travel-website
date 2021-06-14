@@ -26,12 +26,20 @@ def render_departures(departure):
         message = f'К сожалению, отправления из {departure} не существует, попробуйте снова.'
         return render_not_found(404, message)
 
+    tours_by_departure = {num_of_tour:tour_info for num_of_tour, tour_info in data.tours.items() if tour_info['departure'] in departure}
+    analitcs_of_found_tours = {
+        'tours_found' : len(tours_by_departure),
+        'prices' : [v['price'] for k, v in tours_by_departure.items()],
+        'nights' : [v['nights'] for k, v in tours_by_departure.items()]
+    }
+    
     return render_template(
         'departure.html',
         title=data.title,  
         departure=departure, 
-        all_tours=data.tours, 
-        all_departures=data.departures
+        all_tours=tours_by_departure, 
+        all_departures=data.departures,
+        analitics=analitcs_of_found_tours
     )
 
 
