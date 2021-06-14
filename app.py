@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import data
+import random
 
 
 app = Flask(__name__)
@@ -8,13 +9,18 @@ app = Flask(__name__)
 @app.route('/')
 def render_index():
     ''' Main page '''
+
+    # 6 random tours for main page
+    random_tours_id = random.sample(list(data.tours), k=6)
+    random_tours = {num_of_tour:tour_info for num_of_tour, tour_info in data.tours.items() if num_of_tour in random_tours_id}
+    
     return render_template(
         'index.html', 
         title=data.title, 
         subtitle=data.subtitle, 
         description=data.description,
         all_departures=data.departures,
-        all_tours=data.tours
+        all_tours=random_tours
     )
 
 
