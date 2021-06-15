@@ -5,6 +5,7 @@ I make travel site, that offers some nice tours from several towns. Small site f
 Using dependencies: Flask, bootstrap 4. No database.
 
 It should have:
+### *in progress*
 * main page (main adv bar and 3 random tours);
 * page with all tours (all tours, perhaps, with pagination); #TODO
 * page with tours from a certain town;
