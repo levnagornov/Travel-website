@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 
-{% block content_title %}
-{% endblock %}
-
 {% block content %}
     <!-- Tour represented as a card -->
     <main class="container">
       <section class="mt-3 pb-5">
         <!-- Back-button returns to main page -->
         <a href="/"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+
          <!-- Tour card -->
-        <h1 class="display-3 mt-4">{{ tour_info.title }} {{ tour_info.stars|int * '★' }}</h1>
-        <p class="lead">{{ tour_info.country }} | {{ all_departures[tour_info.departure] }} | {{ tour_info.nights }} ночей</p>
-        <img
+        <h1 class="display-4 mt-4">{{ tour_info.title }} {{ tour_info.stars|int * '★' }}</h1>
+        <p class="lead"
+        >{{ tour_info.country[0] }} | {{ all_departures[tour_info.departure] }} | {{ tour_info.nights }} ночей{% if weather %} | Сейчас там {{ weather.temperature }}°C {{ weather.description }} 
+          <img class="image is-50x50" src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image"></p>
+        {% endif %}<img
           src="{{ tour_info.picture }}"
           class="w-75"
           alt="Photo"
+          style="width: 915px; height: 610px"
         />
         <p class="my-4 w-75">{{ tour_info.description }}</p>
-        <a href="#purchaseForm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#purchaseForm">Купить тур за {{ tour_info.price }}</a>
+        <a href="#purchaseForm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#purchaseForm">Купить тур за {{ tour_info.price }} ₽</a>
       </section>
 
       <!-- Modal form for purchasing a tour -->
@@ -27,7 +28,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="purchaseFormLabel"
-              >Оставить заявку на оформление тура<br>{{ tour_info.title }} {{ tour_info.stars|int * '★' }}<br>Цена: {{ tour_info.price }}</h5>
+              >Оставить заявку на оформление тура<br>{{ tour_info.title }} {{ tour_info.stars|int * '★' }}<br>Цена: {{ tour_info.price }} ₽</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

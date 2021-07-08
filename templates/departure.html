@@ -6,26 +6,30 @@
     <a href="/" class="mt-3 pb-5"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
     
     <!-- Main title -->
-    <h1 class="display-5 mt-4">Летим {{ all_departures[departure] }}</h1>
+    <h1 class="display-5 mt-4">Летим <b>{{ all_departures[departure] }}</b></h1>
 
     <!-- Analitics -->
-    <p class="mb-4">Найдено туров: {{ analitics.tours_found }}, от {{ analitics.prices|min }} руб до {{ analitics.prices|max }} руб и от {{ analitics.nights|min }} ночей до {{ analitics.nights|max }} ночей</p>
+    <p class="mb-4"><b>Найдено туров: {{ analitics.tours_found }}</b>, от {{ analitics.prices|min }} руб до {{ analitics.prices|max }} руб и от {{ analitics.nights|min }} ночей до {{ analitics.nights|max }} ночей</p>
 
     <!-- Cards -->
     <div class="row mt-5">
     {% for num_of_tour, tour_info in all_tours.items() %}
-      <div class="col-4">
-        <div class="card mb-4">
-          <div class="embed-responsive embed-responsive-16by9">  
-          <img src="{{ tour_info.picture }}" class="card-img-top img-fluid embed-responsive-item" alt="">
-          </div>
-          <div class="card-body">
-            <h2 class="h5 card-title">{{ tour_info.title }} {{ tour_info.stars }}*</h2>
-            <p class="card-text">{{ tour_info.description|truncate(120) }}</p>
-            <a href="/data/tours/{{ num_of_tour }}/" class="btn btn-sm btn-primary">Подробнее</a>
-          </div>
+    <div class="col-4" style=" display: -webkit-flex; display: -ms-flexbox; display: flex; flex-wrap: wrap;">
+      <div class="card mb-4 ">
+        <div class="embed-responsive embed-responsive-16by9">  
+        <img src="{{ tour_info.picture }}" class="card-img-top img-fluid embed-responsive-item" alt="">
         </div>
-      </div>  
+        <div class="card-body d-flex justify-content-between flex-column">
+          <h2 class="h5 card-title d-flex justify-content-between">
+            <div>{{ tour_info.country[0] }}: {{ tour_info.title }} </div><div>{{ tour_info.stars }}★</div>
+          </h2>
+  
+          <p class="card-text">{{ tour_info.description|truncate(120) }}</p>
+          <a href="/data/tours/{{ num_of_tour }}/" class="btn btn-sm btn-primary">Подробнее</a>
+  
+        </div>
+      </div>
+    </div> 
     {% endfor %}   
     </div>
 </main>

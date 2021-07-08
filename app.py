@@ -1,10 +1,30 @@
 from flask import Flask, render_template
-import data
-import random
-import requests
+import data, random, requests
 
 
 app = Flask(__name__)
+
+
+def get_weather_forcast(place):
+    """Will return weather API of OpenWeatherMap"""
+    api_url = 'https://api.openweathermap.org/data/2.5/weather'
+    params = {
+        'q': place,
+        'appid': '41c94dc66a745d6f4f245f158b18e871',
+        'units': 'metric',
+        "lang" : "ru",
+    }
+    res = requests.get(api_url, params=params)
+    print(res.ok)
+    if res.ok:
+        res = res.json()
+        weather = {
+            "place" : place,
+            "temperature" : res["main"]["temp"],
+            "description" : res["weather"][0]["description"],
+            "icon" : res["weather"][0]["icon"],
+        }        
+        return weather
 
 
 @app.route("/")
@@ -60,25 +80,24 @@ def render_departures(departure):
     )
 
 
-@app.route("/data/tours/<tour_id>/")
+@app.route("/data/tours/<int:tour_id>/")
 def render_tours(tour_id):
     """Page of certain tour"""
 
-    # validating tour_id
-    try:
-        if data.tours.get(int(tour_id), 0) == 0:
-            raise ValueError
-    except ValueError:
+    tour_info = data.tours.get(tour_id)
+    if tour_info is None:
         message = (
-            f"К сожалению, тура с номером {tour_id} не существует, попробуйте снова."
+            f"К сожалению, тура с номером {tour_id} не существует, попробуйте найти другой тур."
         )
         return render_not_found(404, message)
 
+    place = tour_info["country"][1]
     return render_template(
         "tour.html",
         title=data.title,
-        tour_info=data.tours.get(int(tour_id)),
+        tour_info=tour_info,
         all_departures=data.departures,
+        weather=get_weather_forcast(place),
     )
 
 
