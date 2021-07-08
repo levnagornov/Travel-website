@@ -6,19 +6,59 @@
 {% block content %}
     <!-- Tour represented as a card -->
     <main class="container">
-        <section class="mt-3 pb-5">
-          <!-- Back-button returns to main page -->
-          <a href="/"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+      <section class="mt-3 pb-5">
+        <!-- Back-button returns to main page -->
+        <a href="/"><button type="button" class="btn btn-light">Вернуться на главную</button></a>
+         <!-- Tour card -->
+        <h1 class="display-3 mt-4">{{ tour_info.title }} {{ tour_info.stars|int * '★' }}</h1>
+        <p class="lead">{{ tour_info.country }} | {{ all_departures[tour_info.departure] }} | {{ tour_info.nights }} ночей</p>
+        <img
+          src="{{ tour_info.picture }}"
+          class="w-75"
+          alt="Photo"
+        />
+        <p class="my-4 w-75">{{ tour_info.description }}</p>
+        <a href="#purchaseForm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#purchaseForm">Купить тур за {{ tour_info.price }}</a>
+      </section>
 
-          <h1 class="display-3 mt-4">{{ tour_info.title }} {{ tour_info.stars|int * '★' }}</h1>
-          <p class="lead">{{ tour_info.country }} | {{ all_departures[tour_info.departure] }} | {{ tour_info.nights }} ночей</p>
-          <img
-            src="{{ tour_info.picture }}"
-            class="w-75"
-            alt="Photo"
-          />
-          <p class="my-4 w-75">{{ tour_info.description }}</p>
-          <a href="#" class="btn btn-success btn-lg">Купить тур за {{ tour_info.price }}</a>
-        </section>
-      </main>
+      <!-- Modal form for purchasing a tour -->
+      <div class="modal fade" id="purchaseForm" tabindex="-1" role="dialog" aria-labelledby="purchaseFormLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="purchaseFormLabel"
+              >Оставить заявку на оформление тура<br>{{ tour_info.title }} {{ tour_info.stars|int * '★' }}<br>Цена: {{ tour_info.price }}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="client-name" class="col-form-label">Имя:</label>
+                  <input type="text" class="form-control" id="client-name" placeholder="Иван Иванов" required>
+                </div>
+                <div class="form-group">
+                  <label for="client-phone" class="col-form-label">Телефон:</label>
+                  <input type="tel" class="form-control" id="client-phone" placeholder="+79001112233" required>
+                </div>
+                <div class="form-group">
+                  <label for="client-email" class="col-form-label">Email:</label>
+                  <input type="email" class="form-control" id="client-email" placeholder="example@email.ru">
+                </div>
+                <div class="form-group">
+                  <label for="comment-text" class="col-form-label">Комментарий:</label>
+                  <textarea class="form-control" id="comment-text" placeholder="Дополнительная информация"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+              <button type="button" class="btn btn-success" onclick="">Отправить заявку</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
 {% endblock %}

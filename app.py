@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import data
 import random
+import requests
 
 
 app = Flask(__name__)
@@ -81,10 +82,9 @@ def render_tours(tour_id):
     )
 
 
-# temporary page due to the requirement of the course
 @app.route("/data/")
 def render_data():
-    """TEMPORARY PAGE. Show all accessible tours"""
+    """TEMPORARY PAGE due to the requirement of the course. Show all accessible tours"""
 
     return render_template("data.html", all_tours=data.tours)
 
@@ -112,5 +112,4 @@ def render_not_found(
 
 # entry point
 if __name__ == "__main__":
-    # app.run(debug=True)
-    app.run()
+    app.run(debug=True)

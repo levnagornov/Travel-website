@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous"
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
     />
     <title>
       {% block title %} Всякие туры {% endblock %} | Пора отдохнуть!
@@ -15,7 +15,7 @@
   <body>
     <!-- Brend-title and Navigation -->
     <header class="container mt-3">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">{{ title }}</a>
         <button
           class="navbar-toggler"
@@ -32,8 +32,11 @@
           <ul class="navbar-nav">
             {% for short_descr, full_descr in all_departures.items() %}
             <li class="nav-item">
-              <a class="nav-link {% if departure == short_descr %}active{% endif %}" href="/data/departures/{{ short_descr }}/"
-                >{{ full_descr }}</a>
+              <a
+                class="nav-link {% if departure == short_descr %}active{% endif %}"
+                href="/data/departures/{{ short_descr }}/"
+                >{{ full_descr }}</a
+              >
             </li>
             {% endfor %}
           </ul>
@@ -46,6 +49,22 @@
 
     <!-- Page content -->
     {% block content %} {% endblock %}
-
   </body>
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+  
 </html>
