@@ -4,9 +4,9 @@ import data, random, requests
 
 app = Flask(__name__)
 
-
+# weather API for /tours/<int:tour_id>/ page
 def get_weather_forecast(place):
-    """Will return weather API of OpenWeatherMap from <place>"""
+    """Get weather API of OpenWeatherMap from <place>. If it exist will return weather as a dict."""
     api_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
         "q": place,
@@ -30,7 +30,7 @@ def get_weather_forecast(place):
 def render_index():
     """Main page. Shows jumbotron and 6 random tours."""
 
-    #generate 6 random tours for main page
+    # generate 6 random tours for main page
     random_tours_id = random.sample(list(data.tours), k=6)
     random_tours = {
         num_of_tour: tour_info
@@ -50,7 +50,7 @@ def render_index():
 
 @app.route("/data/departures/<departure>/")
 def render_departures(departure):
-    """Page shows all possible tours by certain departure"""
+    """Page shows all possible tours by certain <departure>."""
 
     if departure not in data.departures:
         message = (
@@ -63,7 +63,7 @@ def render_departures(departure):
         for tour_id, tour_info in data.tours.items()
         if tour_info["departure"] == departure
     }
-    analitcs_of_found_tours = {
+    analytics_of_found_tours = {
         "tours_found": len(tours_by_departure),
         "prices": [v["price"] for k, v in tours_by_departure.items()],
         "nights": [v["nights"] for k, v in tours_by_departure.items()],
@@ -75,13 +75,13 @@ def render_departures(departure):
         departure=departure,
         all_tours=tours_by_departure,
         all_departures=data.departures,
-        analitics=analitcs_of_found_tours,
+        analytics=analytics_of_found_tours,
     )
 
 
 @app.route("/data/tours/<int:tour_id>/")
 def render_tours(tour_id):
-    """Page of certain tour, shows description of the tour, photo, and purchase-form"""
+    """Page of certain tour, shows description of the tour, photo, and purchase-form."""
 
     tour_info = data.tours.get(tour_id)
     if tour_info is None:
@@ -100,7 +100,7 @@ def render_tours(tour_id):
 
 @app.route("/data/")
 def render_data():
-    """TEMPORARY PAGE due to the requirement of the course. Show all accessible tours"""
+    """TEMPORARY PAGE due to the requirement of the course. Show all accessible tours."""
 
     return render_template("data.html", all_tours=data.tours)
 
@@ -110,10 +110,16 @@ def render_data():
 def render_server_error(
     error, message="Что-то не так, но мы все починим! Попробуйте позднее."
 ):
-    """Handling 500 error"""
+    """Handles 500 error and shows <message>."""
 
-    return render_template(
-        "error.html", message=message, title=data.title, all_departures=data.departures
+    return (
+        render_template(
+            "error.html",
+            message=message,
+            title=data.title,
+            all_departures=data.departures,
+        ),
+        500,
     )
 
 
@@ -121,13 +127,18 @@ def render_server_error(
 def render_not_found(
     error, message="Ничего не нашлось! Вот неудача, отправляйтесь на главную!"
 ):
-    """Handling 404 error"""
+    """Handles 404 error and shows <message>."""
 
-    return render_template(
-        "error.html", message=message, title=data.title, all_departures=data.departures
+    return (
+        render_template(
+            "error.html",
+            message=message,
+            title=data.title,
+            all_departures=data.departures,
+        ),
+        404,
     )
 
 
-# entry point
 if __name__ == "__main__":
     app.run()

@@ -8,8 +8,8 @@
     <!-- Main title -->
     <h1 class="display-5 mt-4">Летим <b>{{ all_departures[departure] }}</b></h1>
 
-    <!-- Analitics -->
-    <p class="mb-4"><b>Найдено туров: {{ analitics.tours_found }}</b>, от {{ analitics.prices|min }} руб до {{ analitics.prices|max }} руб и от {{ analitics.nights|min }} ночей до {{ analitics.nights|max }} ночей</p>
+    <!-- Analytics of how many tours found, min and max prices, min and max duration -->
+    <p class="mb-4"><b>Найдено туров: {{ analytics.tours_found }}</b>, от {{ analytics.prices|min }} руб до {{ analytics.prices|max }} руб и от {{ analytics.nights|min }} ночей до {{ analytics.nights|max }} ночей</p>
 
     <!-- Cards -->
     <div class="row mt-5">
