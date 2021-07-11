@@ -14,4 +14,4 @@ The site has:
 * '/admin/' - admin's page with logging in for creating/editing/deleting tours; #TODO
 * '/data/all/' - page with all tours; #TODO
 
-Anywa you could run this app through [Heroku](<https://www.heroku.com>), just upload this repository there. (gunicorn and Procfile are already inclusive)
+Anyway you could run this app through [Heroku](<https://www.heroku.com>), just upload this repository there. (gunicorn and Procfile are already inclusive)
