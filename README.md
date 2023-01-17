@@ -1,4 +1,4 @@
-# Travel_flask_app
+# Travel website
 This is my first app on the Flask learning course.
 I make travel site, that offers some nice tours from several towns. Small site for 3 or more pages.
 
